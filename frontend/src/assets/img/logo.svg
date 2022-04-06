@@ -1,0 +1,12 @@
+<svg id="Group_217" data-name="Group 217" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66" height="80.379" viewBox="0 0 66 80.379">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_724" data-name="Rectangle 724" width="66" height="80.379" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_216" data-name="Group 216" clip-path="url(#clip-path)">
+    <path id="Path_198" data-name="Path 198" d="M39.389,0C39.252,0,11.934,0,11.8.01,5.283.207.007,5.018.007,10.8v.019c0,40.042-.045,40.37.087,40.691.26,5.726,5.616,10.358,12.2,10.358,6.731,0,12.208-4.844,12.208-10.8,0-.007,0-2.849,0-2.856V44.084H39.389c13.74,0,24.918-9.888,24.918-22.042S53.129,0,39.389,0M39.3,20.392a1.851,1.851,0,0,1,1.951,1.727c0,.785-.64,1.726-2.192,1.726l-13.094.006-.008-3.46Zm.087,21.13c-7.147,0-21.836-.1-26.958.274-3.939.291-7.648,1.586-9.528,4.152V32.2c.813-5.467,7.1-5.805,11.41-5.805l24.606-.021c4.481-.272,7.68-2.318,9.495-5.245C52.086,15.205,50.153,7.109,42.848,2.8c10.506,1.473,18.564,9.537,18.564,19.238,0,10.742-9.879,19.481-22.022,19.481" transform="translate(0 0)" fill="#3e56dd"/>
+    <text id="PRINTARO" transform="translate(0 72.963)" font-size="13" font-family="Helvetica"><tspan x="0" y="0">PRIN</tspan><tspan y="0" letter-spacing="-0.164em">T</tspan><tspan y="0">ARO</tspan></text>
+    <text id="WEAR_YOUR_CHOICE" data-name="WEAR YOUR CHOICE" transform="translate(0 78.311)" font-size="2" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0" letter-spacing="0.61em">WEA</tspan><tspan y="0" letter-spacing="0.611em">R</tspan><tspan y="0" letter-spacing="0.61em"> </tspan><tspan y="0" letter-spacing="0.596em">Y</tspan><tspan y="0" letter-spacing="0.61em">OU</tspan><tspan y="0" letter-spacing="0.611em">R CHOIC</tspan><tspan y="0">E</tspan></text>
+  </g>
+</svg>

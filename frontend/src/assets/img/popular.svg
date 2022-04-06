@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="138" height="44" viewBox="0 0 138 44">
+  <g id="Group_399" data-name="Group 399" transform="translate(-1061 -177)">
+    <g id="Rectangle_407" data-name="Rectangle 407" transform="translate(1061 177)" fill="none" stroke="#d8d8d8" stroke-width="1">
+      <rect width="138" height="44" rx="22" stroke="none"/>
+      <rect x="0.5" y="0.5" width="137" height="43" rx="21.5" fill="none"/>
+    </g>
+    <text id="Popular" transform="translate(1113 204)" font-size="13" font-family="Poppins-Regular, Poppins"><tspan x="-28.164" y="0">POPULAR</tspan></text>
+    <g id="noun_up_928639" transform="translate(1197 242.5) rotate(180)">
+      <line id="Line_1" data-name="Line 1" x2="3" y2="3" transform="translate(22 41.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line id="Line_2" data-name="Line 2" x1="3" y2="3" transform="translate(19 41.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

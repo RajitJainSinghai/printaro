@@ -1,0 +1,333 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+/********************************************
+**********Header
+*********************************************/
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0px;
+  border-bottom: 1px solid #e5e5e5;
+}
+header .links {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
+header .links a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: #000;
+}
+header .right-nav {
+  display: flex;
+  justify-content: space-around;
+  width: 15%;
+}
+header .right-nav-mb {
+  display: none;
+}
+/********************************************
+**********Media Screen
+*********************************************/
+@media screen and (max-width: 450px) {
+  header {
+    justify-content: space-between;
+  }
+  header .logo {
+    padding: 0px 20px;
+  }
+  header .logo img {
+    width: 30%;
+  }
+  header .right-nav {
+    display: none;
+  }
+  header .links {
+    display: none;
+  }
+  header .right-nav-mb {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+  }
+}
+@media screen and (min-width: 450px) and (max-width: 540px) {
+  header .right-nav {
+    display: none;
+  }
+  header .logo {
+    padding: 0px 30px;
+  }
+  header .right-nav-mb {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+  }
+  header .links {
+    display: none;
+  }
+  header {
+    justify-content: space-between;
+  }
+}
+/**************************
+****Tshirt
+***************************/
+main .tshirt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 0px;
+  gap: 50px;
+}
+main .tshirt .plain-tshirt {
+  position: relative;
+}
+main .tshirt .plain-tshirt img {
+  width: 512px;
+  height: 586px;
+}
+main .tshirt .plain-tshirt .design-frame {
+  position: absolute;
+  top: 27%;
+  left: 24%;
+  border: 1px solid #000;
+}
+main .tshirt .plain-tshirt .design-frame img {
+  width: 243px;
+  height: 240px;
+}
+main .tshirt .plain-tshirt .zoom {
+  width: 47.4%;
+  height: 6%;
+  position: absolute;
+  top: 70%;
+  left: 24%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid;
+  align-items: center;
+  margin-top: -1.2%;
+  background-color: rgba(225, 225, 225, 0.4);
+}
+main .tshirt .plain-tshirt .zoom p {
+  font-size: 10px;
+  padding: 0px 10px;
+}
+main .tshirt .plain-tshirt .zoom img {
+  width: 20px;
+  height: 20px;
+  padding: 0px 10px;
+}
+main .design-container {
+  width: 20%;
+}
+main .design-container .choice {
+  width: 100%;
+  padding: 10px 10px;
+  background-color: #f6f6f6;
+  border: 1px solid #000;
+}
+main .design-container .choice .heading {
+  padding: 0px 0px 10px 0px;
+}
+main .design-container .choice .input {
+  position: relative;
+}
+main .choice .input input {
+  width: 90%;
+  padding: 5px 0px;
+  border-radius: 0px 5px 5px 0px;
+  border: 0;
+}
+main .design-container .choice .input img {
+  position: absolute;
+  top: 0%;
+  right: 8%;
+  width: 25px;
+  background-color: #ebebeb;
+  padding: 3px 10px;
+  border-radius: 0px 5px 5px 0px;
+}
+main .design-container .choice .designs img {
+  width: 60px;
+  height: 69px;
+  padding: 5px 5px;
+}
+main .design-container .choice .designs {
+  padding: 20px 10px 0px 10px;
+}
+main .design-container .button {
+  margin: 10px 20px;
+}
+main .design-container .button button {
+  padding: 10px 109px;
+  background-color: #1a6eff;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+}
+/**************************
+****Media Screen
+***************************/
+@media screen and (max-width: 450px) {
+  main .tshirt {
+    gap: 0px;
+    padding: 0px 0px;
+  }
+  main .tshirt .plain-tshirt img {
+    width: 320px;
+    height: 440px;
+  }
+  main .tshirt .plain-tshirt .design-frame {
+    top: 22%;
+  }
+  main .tshirt .plain-tshirt .design-frame img {
+    width: 160px;
+    height: 190px;
+  }
+  main .tshirt .plain-tshirt .zoom {
+    top: 67%;
+    width: 50%;
+  }
+  main .design-container {
+    width: 90%;
+  }
+  main .design-container .choice {
+    width: 95%;
+  }
+  main .design-container .choice .designs {
+    display: flex;
+    overflow: scroll;
+  }
+  main .design-container .button {
+    margin: 10px 35px;
+  }
+  main .design-container .button button {
+    border-radius: 35px;
+  }
+}
+@media screen and (min-width: 540px) and (max-width: 850px) {
+  main .design-container {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 280px) {
+  main .tshirt {
+    padding: 20px 0px;
+  }
+  main .tshirt .plain-tshirt img {
+    width: 300px;
+    height: 200px;
+  }
+  main .tshirt .plain-tshirt .design-frame {
+    top: 25%;
+    left: 36%;
+  }
+  main .tshirt .plain-tshirt .design-frame img {
+    width: 80px;
+    height: 90px;
+  }
+  main .tshirt .plain-tshirt .zoom {
+    top: 74%;
+    width: 26.5%;
+    left: 36%;
+  }
+  main .tshirt .plain-tshirt .zoom p {
+    font-size: 4px;
+  }
+  main .tshirt .plain-tshirt .zoom img {
+    width: 5px;
+  }
+  main .design-container .button {
+    margin: 10px 0px;
+  }
+}
+/****************************
+******Bottom
+*****************************/
+.bottom {
+  margin: 50px 250px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.bottom a {
+  display: block;
+  text-decoration: none;
+  font-size: 10px;
+  color: #000;
+  line-height: 25px;
+}
+.bottom p {
+  font-size: 10px;
+  color: #808080;
+}
+.bottom span {
+  font-weight: bolder;
+}
+.bottom .links {
+  margin-top: 30px;
+}
+.bottom .printaro .social-links {
+  margin-top: 30px;
+}
+.bottom .printaro .social-links img {
+  padding: 0px 10px;
+  width: 10px;
+}
+/****************************
+******Media Screen
+*****************************/
+@media screen and (max-width: 500px) {
+  .bottom {
+    margin: 50px 0px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    padding: 0px 30px;
+    grid-gap: 10px;
+  }
+  .bottom .printaro .social-links img {
+    padding: 0px 10px;
+    width: 20px;
+  }
+  .bottom .links {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 950px) {
+  .bottom {
+    margin: 50px 20px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .bottom {
+    grid-gap: 10px;
+  }
+  .bottom .links {
+    margin-top: 5px;
+  }
+}
+/****************************
+******Footer
+*****************************/
+footer {
+  text-align: center;
+  color: #808080;
+  border-top: 1px solid #aeaeae;
+}
+footer p {
+  padding: 20px 0px;
+}
+/****************************
+******Media Screen
+*****************************/
+footer p {
+  font-size: 10px;
+}
