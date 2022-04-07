@@ -1,8 +1,6 @@
 from django.db import models
-from apps.products.models import Product
 from apps.users.models import User
-from config.constants import *
-from django.core.validators import MinValueValidator
+from django.utils import timezone
 
 
 class Order(models.Model):
@@ -10,59 +8,39 @@ class Order(models.Model):
         db_table = 'order'
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, db_index=True
+        User, related_name='related_order_user', on_delete=models.CASCADE
     )
-    total_price = models.FloatField(
-        'Total Price', blank=False, null=False, max_length=255, validators=[MinValueValidator(1)]
+    customer_name = models.CharField(
+        'Customer Name', blank=False, null=False, max_length=255
     )
-    full_name = models.CharField(
-        'Full Name', blank=False, null=False, max_length=25, db_index=True
+    customer_phone = models.CharField(
+        'Customer Phone', blank=False, null=False, max_length=255
     )
-    address_line1 = models.CharField(
-        'Address Line1', blank=False, null=False, max_length=250, db_index=True
+    address = models.CharField(
+        'Address', blank=False, null=False, max_length=255
     )
-    address_line2 = models.CharField(
-        'Address Line2', blank=False, null=False, max_length=250, db_index=True
+    pin_code = models.CharField(
+        'Pin Code', blank=False, null=False, max_length=255
+    )
+    building_type = models.CharField(
+        'Building Type', blank=True, null=True, max_length=255
     )
     city = models.CharField(
-        'City', blank=False, null=False, max_length=25, db_index=True
+        'City', blank=False, null=False, max_length=255
     )
     state = models.CharField(
-        'State', blank=False, null=False, max_length=25, db_index=True
+        'State', blank=False, null=False, max_length=255
     )
-    postal_code = models.IntegerField(
-        'Postal Code', blank=False, null=False, db_index=True
+    total_price = models.FloatField(
+        'Total Price', blank=False, null=False
     )
-    country = models.CharField(
-        'Country', blank=False, null=False, max_length=25, db_index=True, choices=COUNTRIES, default='United State'
-    )
-    telephone = models.IntegerField(
-        'Telephone', blank=True, null=True, db_index=True
+    total_qty = models.IntegerField(
+        'Total Quantity', blank=False, null=False
     )
     created_at = models.DateTimeField(
-        'Created At', blank=True, auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        'Updated At', blank=True, auto_now=True
+        'Creation Date', blank=True, default=timezone.now
     )
 
-
-class OrderItem(models.Model):
-    class Meta(object):
-        db_table = 'order_item'
-
-    order = models.ForeignKey(
-        Order, on_delete=models.CASCADE, db_index=True
-    )
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, db_index=True
-    )
-    quantity = models. IntegerField(
-        'Quantity', blank=False, null=False, db_index=True
-    )
-    created_at = models.DateTimeField(
-        'Created At', blank=True, auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        'Updated At', blank=True, auto_now=True
-    )
+    @property
+    def order_items(self):
+        return self.related_order.all()

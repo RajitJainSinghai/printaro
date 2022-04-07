@@ -1,65 +1,80 @@
-from rest_framework import generics
-from rest_framework import status
+import re
+from django.db.models import query
+from django.shortcuts import render
+from rest_framework import generics, serializers, status
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
-from .serializers import CartSerializer, CartListSerializer
-from ..users.mixins import CustomLoginRequiredMixin
+from apps.carts.serializers import CartSerializer, CartUpdateSerializer, CartListSerializer
+from apps.products.models import Product
 from .models import Cart
+from apps.users.mixins import CustomLoginRequiredMixin
+from apps.users.models import User
+
+from config.helpers.error_response import error_response
 
 
-class CartList(generics.ListAPIView):
-    queryset = Cart.objects.all()
+class CartList(CustomLoginRequiredMixin, generics.ListAPIView):
     serializer_class = CartListSerializer
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['user_id']
+    pagination_class = None
 
-    def get(self, request, *args, **kwargs):
-        self.queryset = Cart.objects.order_by(
-            '-created_at').filter(user=request.login_user)
-        return self.list(request, *args, **kwargs)
+    def get_queryset(self):
+        return Cart.objects.filter(user=self.request.login_user.id)
 
 
-class CartAdd(generics.CreateAPIView):
+class CartAdd(CustomLoginRequiredMixin, generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
     def post(self, request, *args, **kwargs):
-        # Set the user who login
-        request.data['user'] = request.login_user.id
-        return self.create(request, *args, **kwargs)
+
+        self.get_serializer_class().validate(self, request.data)
+
+        product = Product.objects.filter(id=request.data['product']).first()
+        if (product is None):
+            return error_response('product not found.', status.HTTP_400_BAD_REQUEST)
+
+        cart = Cart.objects.filter(
+            product_id=request.data['product'], user_id=request.login_user.id).first()
+        if (cart is not None):
+            return error_response('Cart already existed.', status.HTTP_400_BAD_REQUEST)
+
+        new_cart = Cart.objects.create(
+            user=User.objects.get(id=request.login_user.id),
+            product=product,
+            quantity=int(request.data['quantity'])
+        )
+
+        # Convert Model to Serializer
+        serializer = CartListSerializer(new_cart)
+
+        # Response data as Dict
+        return Response(serializer.data)
 
 
-class CartDelete(generics.DestroyAPIView):
+class CartUpdate(CustomLoginRequiredMixin, generics.UpdateAPIView):
     queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    serializer_class = CartUpdateSerializer
+    lookup_field = 'id'
 
-    def delete(self, request, *args, **kwargs):
-        cart = Cart.objects.get(pk=self.kwargs['pk'])
-        if cart.user.id != request.login_user.id:
-            response = Response(
-                {'error': 'You can not delete the cartlist not owned by you.'}, status=status.HTTP_404_NOT_FOUND)
-            response.accepted_renderer = JSONRenderer()
-            response.accepted_media_type = "application/json"
-            response.renderer_context = {}
-            return response
-        return self.destroy(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        self.get_serializer_class().validate(self, request.data)
+        quantity = int(request.data['quantity'])
 
+        id = self.kwargs['id']
+        cart = Cart.objects.filter(id=id)
+        if cart.first() is None:
+            return error_response('Cart not found.', status.HTTP_400_BAD_REQUEST)
 
-class CartUpdate(generics.UpdateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+        if quantity < 1:
+            cart.delete()
+            return Response({'message': 'Deleted successfully.'})
 
-    def update(self, request, *args, **kwargs):
-        cart = Cart.objects.get(pk=self.kwargs['pk'])
-        if cart.user.id != request.login_user.id:
-            response = Response(
-                {'error': 'You can not update the cartlist not owned by you.'}, status=status.HTTP_404_NOT_FOUND)
-            response.accepted_renderer = JSONRenderer()
-            response.accepted_media_type = "application/json"
-            response.renderer_context = {}
-            return response
+        cart.update(
+            quantity=quantity
+        )
 
-        cart.quantity = request.data['quantity']
-        cart.save()
-        serializer = CartSerializer([cart], many=True)
-        return Response(serializer.data[0])
+        # Convert Model to Serializer
+        serializer = CartListSerializer(cart[0])
+
+        # Response data as Dict
+        return Response(serializer.data)

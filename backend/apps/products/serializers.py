@@ -1,18 +1,12 @@
-from apps.tshirts.serializers import TshirtListSerializer
-from apps.logos.serializers import LogoListSerializer
 from .models import Product
 from rest_framework import serializers
+from cloudinary.models import CloudinaryField
+from apps.categories.serializers import CategorySerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-
-class ProductListSerializer(serializers.ModelSerializer):
-    student = TshirtListSerializer()
-    application = LogoListSerializer()
+    image = serializers.ImageField(read_only=True)
+    category = CategorySerializer(many=False, read_only=True)
 
     class Meta:
         model = Product

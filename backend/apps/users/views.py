@@ -1,13 +1,12 @@
+from django.shortcuts import render
 
+# Create your views here.
 from rest_framework import generics
+from rest_framework.response import Response
+
 from apps.users.mixins import CustomLoginRequiredMixin
 from .models import User
 from .serializers import UserSerializer, UserSignInSerializer, UserSignUpSerializer
-
-
-class UserList(CustomLoginRequiredMixin, generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 class UserSignUp(generics.CreateAPIView):
@@ -18,3 +17,12 @@ class UserSignUp(generics.CreateAPIView):
 class UserSignIn(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSignInSerializer
+
+
+class UserProfile(CustomLoginRequiredMixin, generics.ListAPIView):
+    serializer_class = UserSerializer
+    pagination_class = None
+
+    def get(self, request, *args, **kwargs):
+        serializer = UserSerializer([request.login_user], many=True)
+        return Response(serializer.data[0])

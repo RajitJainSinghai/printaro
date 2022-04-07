@@ -1,8 +1,8 @@
 from django.db import models
 
 
-class User(models.Model):
-    class Meta(object):
+class User (models.Model):
+    class Meta(object):  # self generating class
         db_table = 'user'
 
     name = models.CharField(

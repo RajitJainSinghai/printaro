@@ -1,28 +1,17 @@
-from rest_framework import generics
-from .serializers import ProductSerializer, ProductListSerializer
+from django.db.models import query
+from django.shortcuts import render
+from rest_framework import generics, serializers
+from django_filters.rest_framework import DjangoFilterBackend
+from apps.users.mixins import CustomLoginRequiredMixin
+from apps.products.serializers import ProductSerializer
+from rest_framework import filters
+
 from .models import Product
-from config.constants import *
 
 
-class Productist(generics.ListAPIView):
-    # Get all posts, limit = 20
+class ProductList(CustomLoginRequiredMixin, generics.ListAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductListSerializer
-
-
-class ProductAdd(generics.CreateAPIView):
     serializer_class = ProductSerializer
-    queryset = Product.objects.all()
-    lookup_field = 'id'
-
-
-class ProductUpdate(generics.UpdateAPIView):
-    serializer_class = ProductSerializer
-    queryset = Product.objects.all()
-    lookup_field = 'id'
-
-
-class ProductDelete(generics.DestroyAPIView):
-    serializer_class = ProductSerializer
-    queryset = Product.objects.all()
-    lookup_field = 'id'
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['category_id', 'type']
+    search_fields = ['name', 'description']

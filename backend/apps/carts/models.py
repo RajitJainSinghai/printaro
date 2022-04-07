@@ -4,21 +4,19 @@ from apps.products.models import Product
 
 
 class Cart(models.Model):
-    class Meta:
+    class Meta(object):
         db_table = 'cart'
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, db_index=True
+        User, related_name='related_user', on_delete=models.CASCADE
     )
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, db_index=True
+        Product, related_name='related_product', on_delete=models.CASCADE
     )
     quantity = models.IntegerField(
-        'Quantity', blank=False, null=False, db_index=True
+        'Quantity', blank=False, null=False
     )
-    created_at = models.DateTimeField(
-        'Created At', blank=True, auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        'Updated At', blank=True, auto_now=True
-    )
+
+    @property
+    def total_price(self):
+        return self.quantity * self.product.price
